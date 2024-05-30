@@ -1,18 +1,29 @@
 import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import "./BookForm.css";
+import { v4 as uuidv4 } from "uuid";
+import { setError } from "../../redux/slices/errorSlice";
+import { useDispatch } from "react-redux";
 
-const BookForm = () => {
+const BookForm = ({ onSubmit }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (title && author) {
+      const newBookObject = {
+        title: title,
+        author: author,
+        id: uuidv4(),
+      };
+      onSubmit(newBookObject);
       setTitle("");
       setAuthor("");
     } else {
+      dispatch(setError("You must fill title and author!"));
     }
   };
 
