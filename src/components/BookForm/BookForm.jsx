@@ -9,7 +9,8 @@ const BookForm = ({ onSubmit }) => {
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
 	const dispatch = useDispatch();
-	console.log(author, "hello world");
+  const newValue = false
+  console.log(newValue)
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
