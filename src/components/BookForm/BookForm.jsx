@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import "./BookForm.css";
-import { v4 as uuidv4 } from "uuid";
 import { setError } from "../../redux/slices/errorSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoading } from "../../redux/slices/eBookSlice";
 
 const BookForm = ({ onSubmit }) => {
 	const [title, setTitle] = useState("");
 	const [author, setAuthor] = useState("");
 	const dispatch = useDispatch();
-  const newValue = false
-  console.log(newValue)
+	const isLoading = useSelector(selectIsLoading);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
@@ -18,7 +18,7 @@ const BookForm = ({ onSubmit }) => {
 			const newBookObject = {
 				title: title,
 				author: author,
-				id: uuidv4(),
+				isFavorite: false,
 			};
 			onSubmit(newBookObject);
 			setTitle("");
@@ -56,7 +56,7 @@ const BookForm = ({ onSubmit }) => {
         </button> */}
 
 				<button type="button">
-					{false ? (
+					{isLoading ? (
 						<>
 							<span>Loading Book...</span>
 							<FaSpinner className="spinner" />
